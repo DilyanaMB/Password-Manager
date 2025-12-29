@@ -2,6 +2,8 @@ from tkinter import *
 from tkinter import messagebox
 from random import randint, choice, shuffle
 import pyperclip
+import json
+
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
@@ -23,12 +25,16 @@ def generate_password():
     entry_password.insert(0, password)
     pyperclip.copy(password)
 
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save_data():
     website = entry_website.get()
     email = entry_email.get()
     password = entry_password.get()
+    new_data = {
+        website: {'email': email, 'password': password},
+    }
 
     if len(website) == 0 or len(email) == 0 or len(password) == 0:
         messagebox.showwarning(message='Missing required data', detail=f'Some of the fields are emtpy. '
@@ -38,8 +44,8 @@ def save_data():
                                                                f'Email: {email}\n Password: {password}\n '
                                                                f'Is it ok to save?')
         if is_ok:
-            with open("data.txt", "a") as f:
-                f.write(f'{website} | {email} | {password}\n')
+            with open("data.json", "w") as f:
+                json.dump(new_data, f, indent=4)
 
             entry_website.delete(0, END)
             entry_email.delete(0, END)
