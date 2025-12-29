@@ -11,9 +11,13 @@ def save_data():
     email = entry_email.get()
     password = entry_password.get()
 
-    is_ok = messagebox.askokcancel(message=website, detail=f'This are the details that you entered:\n'
-                                                           f'Email: {email}\n Password: {password}\n '
-                                                           f'Is it ok to save?')
+    if len(website) == 0 or len(email) == 0 or len(password) == 0:
+        messagebox.showwarning(message='Missing required data', detail=f'Some of the fields are emtpy. '
+                                                                       f'Please fill all fields and then click \'Add\'\n')
+    else:
+        is_ok = messagebox.askokcancel(message=website, detail=f'This are the details that you entered:\n'
+                                                               f'Email: {email}\n Password: {password}\n '
+                                                               f'Is it ok to save?')
     if is_ok:
         with open("data.txt", "a") as f:
             f.write(f'{website} | {email} | {password}\n')
