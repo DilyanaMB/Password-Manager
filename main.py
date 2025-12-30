@@ -18,7 +18,8 @@ def find_password():
             email=data[website]['email']
             password=data[website]['password']
             messagebox.showinfo(message=website, detail=f'Email: {email}\n Password: {password}')
-
+        else:
+            messagebox.showinfo(message='Error', detail=f'No details for {website} exists.')
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 def generate_password():
