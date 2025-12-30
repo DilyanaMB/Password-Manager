@@ -11,12 +11,13 @@ def find_password():
     try:
         with open("data.json", "r") as f:
             data = json.load(f)
-            if  website in data:
-                email=data[website]['email']
-                password=data[website]['password']
-                messagebox.showinfo(message=website, detail=f'Email: {email}\n Password: {password}')
-    except:
-        pass
+    except FileNotFoundError:
+        messagebox.showinfo(message='Error', detail=f'No data file found.')
+    else:
+        if  website in data:
+            email=data[website]['email']
+            password=data[website]['password']
+            messagebox.showinfo(message=website, detail=f'Email: {email}\n Password: {password}')
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
